@@ -1,0 +1,22 @@
+{
+  "name": "fireblocks-raw-signing",
+  "version": "1.0.0",
+  "description": "heyo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coltonc3/fireblocks-raw-signing.git"
+  },
+  "author": "god",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/coltonc3/fireblocks-raw-signing/issues"
+  },
+  "homepage": "https://github.com/coltonc3/fireblocks-raw-signing#readme",
+  "dependencies": {
+    "fireblocks-sdk": "^2.4.0"
+  }
+}
