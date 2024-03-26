@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { createHash } = require('crypto');
 
 const secretKey = fs.readFileSync('./fireblocks_secret.key', "utf8"); 
 const apiKey = fs.readFileSync('./fireblocks_api.key', "utf8"); 
@@ -10,6 +11,7 @@ const fireblocks = new FireblocksSDK(secretKey, apiKey);
 const TESTNET = true;
 const VAULT_ACCOUNT_ID = 1;
 const SIGNING_PAYLOAD = "<signing_payload>";
+const ASSET_SUBSTRING = "SOL";
 
 async function waitForTxCompletion(fbTx) {
   let tx = fbTx;
@@ -34,10 +36,10 @@ async function waitForTxCompletion(fbTx) {
 }
 
 (async() => {
-  let note = "Testing Figment's Staking API with Fireblocks...";
+  let note = "Testing Figment's API with Fireblocks...";
 
   const fbTx = await fireblocks.createTransaction({
-    assetId: TESTNET ? 'SOL_TEST' : 'SOL',
+    assetId: TESTNET ? `${ASSET_SUBSTRING}_TEST` : ASSET_SUBSTRING,
     operation: TransactionOperation.RAW,
     source: {
         type: PeerType.VAULT_ACCOUNT,
@@ -53,13 +55,13 @@ async function waitForTxCompletion(fbTx) {
 
   console.log("+*************************************************************************+");
   console.log("|                                                                         |");
-  console.log(`|            ${note}             |`);
+  console.log(`|            ${note}                     |`);
   console.log("|                                                                         |");
   console.log("+*************************************************************************+\n\n");
   
   let tx = await waitForTxCompletion(fbTx);
 
-  console.log("Signed messages below:");
+  console.log("Signed tx below:");
   tx.signedMessages.forEach(msg => (console.log(`${msg.signature.fullSig}\n`)));
 })();
 
